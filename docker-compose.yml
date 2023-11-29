@@ -1,0 +1,56 @@
+version: '3'
+
+networks:
+  app-network:
+    driver: bridge
+
+services:
+  frontend:
+    container_name: frontend
+    build: frontend
+    image: frontend:1.0
+    networks:
+      - app-network
+    environment:
+      BACK_HOST: ${BACK_URL}
+    ports:
+      - "3000:3000"
+    depends_on:
+      - backend
+    restart: always
+  backend:
+    container_name: backend
+    build: backend
+    image: backend:1.0
+    networks:
+      - app-network
+    environment:
+      DB_TYPE: ${DB_TYPE}
+      POSTGRES_USER: ${PSQL_USER}
+      POSTGRES_PASS: ${PSQL_PASS}
+      POSTGRES_DB: ${PROJECT_DB}
+      POSTGRES_POT: ${PSQL_PORT}
+      PG_HOST: ${PSQL_HOST}
+    ports:
+      - "5000:5000"
+    depends_on:
+      - postgres
+    restart: always
+  postgres:
+    container_name: db-postgres
+    image: postgres
+    networks:
+      - app-network
+    environment:
+      POSTGRES_USER: ${PSQL_USER}
+      POSTGRES_PASSWORD: ${PSQL_PASS}
+      POSTGRES_DB: ${PROJECT_DB}
+    volumes:
+      - db_vol:/var/lib/postgresql/data
+    expose:
+      - "5342"
+    restart: always
+
+volumes:
+  db_vol:
+
