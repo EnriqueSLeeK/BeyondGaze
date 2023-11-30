@@ -29,3 +29,12 @@ export class UpdateUser {
 	email: string;
 	nickname: string;
 }
+
+export class LoginUser {
+	@IsNotEmpty()
+	@IsEmail()
+	email: string;
+
+	@IsNotEmpty()
+	password: string;
+}
