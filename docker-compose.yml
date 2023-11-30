@@ -49,6 +49,7 @@ services:
       - db_vol:/var/lib/postgresql/data
     expose:
       - "5432"
+      - "5433"
     restart: always
 
 volumes:

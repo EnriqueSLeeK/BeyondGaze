@@ -1,5 +1,7 @@
 
-import { IsNotEmpty, Length } from 'class-validator'
+import { IsEmail,
+	IsNotEmpty,
+	Length } from 'class-validator'
 
 export class CreateUser {
 	@IsNotEmpty()
@@ -13,6 +15,7 @@ export class CreateUser {
 	password: string;
 
 	@IsNotEmpty()
+	@IsEmail()
 	email: string;
 
 	@IsNotEmpty()
@@ -22,13 +25,7 @@ export class CreateUser {
 export class UpdateUser {
 	name: string;
 	secondName: string;
-}
-
-export class UpdatePassword {
-}
-
-export class UpdateEmail {
-}
-
-export class DeleteUser {
+	password: string;
+	email: string;
+	nickname: string;
 }
