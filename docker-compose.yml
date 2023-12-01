@@ -41,7 +41,7 @@ services:
       - postgres
     restart: always
   postgres:
-    container_name: db-postgres
+    container_name: postgres
     image: postgres
     networks:
       - app-network
