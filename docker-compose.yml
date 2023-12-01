@@ -5,6 +5,7 @@ networks:
     driver: bridge
 
 services:
+
   frontend:
     container_name: frontend
     build: frontend
@@ -18,12 +19,15 @@ services:
     depends_on:
       - backend
     restart: always
+
   backend:
     container_name: backend
     build: backend
     image: backend:1.0
     networks:
       - app-network
+    env_file:
+        - .env
     environment:
       DB_TYPE: ${DB_TYPE}
       POSTGRES_USER: ${PSQL_USER}
@@ -37,7 +41,7 @@ services:
       - postgres
     restart: always
   postgres:
-    container_name: db-postgres
+    container_name: postgres
     image: postgres
     networks:
       - app-network
