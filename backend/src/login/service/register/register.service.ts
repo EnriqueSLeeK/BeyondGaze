@@ -18,4 +18,8 @@ export class RegisterService {
 		return user;
 	}
 
+	async findOne(userInfo: CreateUser): Promise<User | undefined> {
+		return await this.userRepository.findOne({where: { email: userInfo.email }});
+	}
+
 }

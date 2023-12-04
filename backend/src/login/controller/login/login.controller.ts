@@ -1,13 +1,14 @@
 import { Body, Controller, Get, NotFoundException, Post } from '@nestjs/common';
-import { LoginUser } from 'src/login/dto/user.dto';
+import { LoginUser, RecoverUser } from 'src/login/dto/user.dto';
 import { LoginService } from 'src/login/service/login/login.service';
-import * as bcrypt from 'bcrypt'
 import { User } from 'src/login/entity/user.entity';
+import { HashService } from 'src/login/service/hash/hash.service';
+import { AuthService } from 'src/auth/auth.service';
 
 @Controller('login')
 export class LoginController {
 
-	constructor (private readonly loginService: LoginService) {}
+	constructor (private readonly authService: AuthService) {}
 
 	@Get()
 	async returnDummy() {
@@ -16,15 +17,18 @@ export class LoginController {
 
 	@Post()
 	async loginUser(@Body() userData: LoginUser): Promise<User> {
-		const user = this.loginService.findUser(userData);
-
-		if (!user || bcrypt.compare(userData.password, user['password']))
-			throw new NotFoundException("Incorrect email or password") 
-		return user;
+		return this.authService.login(userData);
 	}
 	
 	@Post()
-	async forgotPassword(@Body() email: string) {
+	async forgotReqPassword(@Body() recoverUserInfo: RecoverUser) {
+		console.log(recoverUserInfo);
 		return "User forgot pass";
+	}
+
+	@Post()
+	async changePassword(@Body() password: string) {
+		console.log(password);
+		return 'changing password';
 	}
 }

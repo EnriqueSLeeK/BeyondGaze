@@ -38,3 +38,9 @@ export class LoginUser {
 	@IsNotEmpty()
 	password: string;
 }
+
+export class RecoverUser {
+	@IsEmail()
+	@IsNotEmpty()
+	email: string;
+}
