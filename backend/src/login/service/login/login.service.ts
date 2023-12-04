@@ -13,6 +13,10 @@ export class LoginService {
 	) {}
 
 	async findUser (user : LoginUser ): Promise<User | undefined> {
-		return await this.userRepository.findOne({where: {userId: user.email}});
+		return await this.userRepository.findOne({where: {email: user.email}});
+	}
+
+	async findUserById (id: string): Promise<User | undefined> {
+		return await this.userRepository.findOne({where: {userId: id}});
 	}
 }

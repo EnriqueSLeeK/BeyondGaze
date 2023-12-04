@@ -15,9 +15,7 @@ import { User } from './login/entity/user.entity';
 
 @Module({
 	imports: [
-		ConfigModule.forRoot({
-			ignoreEnvFile: true,
-		}),
+		ConfigModule.forRoot(),
 		TypeOrmModule.forRoot({
 			type: process.env.DB_TYPE as any,
 			host: process.env.PSQL_HOST,

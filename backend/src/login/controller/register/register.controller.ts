@@ -27,14 +27,18 @@ export class RegisterController {
 	async registerUser(@Body() userRegistrationData: CreateUser) {
 
 		const userExists = this.registerService.findOne(userRegistrationData);
-		if (!userExists)
-			throw new ConflictException('this account already exists!');
+
+		if (!userExists) {
+			throw new ConflictException('This account already exists!');
+		}
 
 		userRegistrationData['password'] = 
 			await this.hashService.hashPassword(userRegistrationData['password'],
 												10);
 
-		const user = this.registerService.createUser(userRegistrationData);
-		return user;
+		const user = await this.registerService.createUser(userRegistrationData);
+
+		const {password, ...result} = user;
+		return result;
 	}
 }

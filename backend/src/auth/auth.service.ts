@@ -15,16 +15,22 @@ export class AuthService {
 		const user = await this.loginService.findUser(userData);
 
 		if (!user
-			|| this.hashService.comparePassword(userData.password,
+			|| !this.hashService.comparePassword(userData.password,
 												user.password)) {
-			throw new UnauthorizedException()
+			throw new UnauthorizedException();
 		}
 
-		const payload = {sub: user.userId, username: user.nickname};
-
-		return {
-			access_token: await this.jwtService.signAsync(payload)
-		};
+		return await this.jwtService.signAsync({ id: user.userId, email: user.email });
 	}
 
+
+	async verifyCookie(cookie: any): Promise<any> {
+
+		const data = await this.jwtService.verifyAsync(cookie);
+
+		if (!data)
+			throw new UnauthorizedException();
+
+		return data;
+	}
 }
