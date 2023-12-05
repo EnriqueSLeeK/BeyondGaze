@@ -12,6 +12,7 @@ import { LoginModule } from './login/login.module';
 import { ConfigModule } from '@nestjs/config'
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { User } from './login/entity/user.entity';
+import { MailModule } from './mail/mail.module';
 
 @Module({
 	imports: [
@@ -29,7 +30,8 @@ import { User } from './login/entity/user.entity';
 		AuthModule,
 		ApiModule,
 		ShareModule,
-		LoginModule],
+		LoginModule,
+		MailModule],
 
 	controllers: [AppController, ShareController, ApiController],
 

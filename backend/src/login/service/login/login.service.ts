@@ -13,10 +13,20 @@ export class LoginService {
 	) {}
 
 	async findUser (user : LoginUser ): Promise<User | undefined> {
-		return await this.userRepository.findOne({where: {email: user.email}});
+		return await this.findUserByEmail(user.email);
+	}
+
+	async findUserByEmail (user_email: string): Promise<User | undefined> {
+		return await this.userRepository.findOne({where: {email: user_email}});
 	}
 
 	async findUserById (id: string): Promise<User | undefined> {
 		return await this.userRepository.findOne({where: {userId: id}});
+	}
+
+	async registerToken (userId: string) {
+	}
+
+	async unregisterToken (userId: string) {
 	}
 }
