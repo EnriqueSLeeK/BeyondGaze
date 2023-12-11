@@ -28,4 +28,10 @@ export class ApiService {
     const response = await axios.get(url);
     return response.data;
   }
+
+  async getAPOD() {
+    const url = `https://api.nasa.gov/planetary/apod?api_key=DEMO_KEY`;
+    const response = await axios.get(url);
+    return response.data;
+  }
 }
