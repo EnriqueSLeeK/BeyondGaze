@@ -24,4 +24,9 @@ export class ApiController {
   async getVideoCaptions(@Query('nasaId') nasaId: string) {
     return this.appService.getVideoCaptions(nasaId);
   }
+
+  @Get('apod')
+  async getAPOD() {
+    return this.appService.getAPOD();
+  }
 }
