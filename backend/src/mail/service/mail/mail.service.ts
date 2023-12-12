@@ -12,7 +12,7 @@ export class MailService {
 			from: 'noreply@space.com',
 			subject: 'Password Recovery',
 			text: 'Please the click the link below',
-			html: '<b>pass change</b>',
+			html: `<a>${process.env.FRONT_URL}:5000/${token}</a>`,
 		})
 	}
 }
