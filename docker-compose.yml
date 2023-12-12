@@ -34,6 +34,7 @@ services:
       POSTGRES_PASS: ${PSQL_PASS}
       POSTGRES_DB: ${PROJECT_DB}
       POSTGRES_POT: ${PSQL_PORT}
+      FRONT_URL: ${FRONT_URL}
       PG_HOST: ${PSQL_HOST}
     ports:
       - "5000:5000"

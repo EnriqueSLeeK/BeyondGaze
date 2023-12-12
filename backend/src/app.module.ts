@@ -11,13 +11,12 @@ import { AuthModule } from './auth/auth.module';
 import { LoginModule } from './login/login.module';
 import { ConfigModule } from '@nestjs/config'
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { User } from './login/entity/user.entity';
+import { User } from './entity/user.entity';
+import { MailModule } from './mail/mail.module';
 
 @Module({
 	imports: [
-		ConfigModule.forRoot({
-			ignoreEnvFile: true,
-		}),
+		ConfigModule.forRoot(),
 		TypeOrmModule.forRoot({
 			type: process.env.DB_TYPE as any,
 			host: process.env.PSQL_HOST,
@@ -31,7 +30,8 @@ import { User } from './login/entity/user.entity';
 		AuthModule,
 		ApiModule,
 		ShareModule,
-		LoginModule],
+		LoginModule,
+		MailModule],
 
 	controllers: [AppController, ShareController, ApiController],
 
