@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { LoginUser } from 'src/login/dto/user.dto';
-import { User } from 'src/login/entity/user.entity';
+import { LoginUser } from 'src/dto/user.dto';
+import { User } from 'src/entity/user.entity';
 import { Repository } from 'typeorm'
 
 @Injectable()
@@ -24,9 +24,8 @@ export class LoginService {
 		return await this.userRepository.findOne({where: {userId: id}});
 	}
 
-	async registerToken (userId: string) {
-	}
-
-	async unregisterToken (userId: string) {
+	async updatePassword(new_password: string, email: string) {
+		this.userRepository.update({email: email},
+								   {password: new_password});
 	}
 }

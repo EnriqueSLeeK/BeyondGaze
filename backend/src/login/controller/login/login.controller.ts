@@ -1,16 +1,18 @@
 import { Body, Controller, Get, NotFoundException, Param, Post, Req, Res, UnauthorizedException } from '@nestjs/common';
-import { LoginUser, RecoverUser } from 'src/login/dto/user.dto';
-import { AuthService } from 'src/auth/auth.service';
+import { LoginUser, RecoverUser } from 'src/dto/user.dto';
 import { Request, Response } from 'express';
 import { LoginService } from 'src/login/service/login/login.service';
 import { MailService } from 'src/mail/service/mail/mail.service';
+import { AuthService } from 'src/auth/service/auth/auth.service';
+import { RecoveryService } from 'src/auth/service/recovery/recovery.service';
 
 @Controller('login')
 export class LoginController {
 
 	constructor (private readonly authService: AuthService,
 				private readonly loginService: LoginService,
-				private readonly mailService: MailService) {}
+				private readonly mailService: MailService,
+				private readonly recoveryService: RecoveryService) {}
 
 	@Get('user')
 	async loggedUser(@Req() request: Request): Promise<any> {
@@ -56,12 +58,25 @@ export class LoginController {
 		if (!user)
 			throw new NotFoundException('user not found');
 
-		//const token = generateToken();
+		const token = this.recoveryService.createToken(recoverUserInfo.email);
+		this.recoveryService.createTokenEntry(recoverUserInfo.email, token);
 		this.mailService.mail_send(recoverUserInfo.email, token);
 	}
 
 	@Post(':req_id')
-	async changePassword(@Param('req_id') reset_id: string) {
-		return 'changing password';
+	async changePassword(@Param('req_id') reset_id: string,
+						@Body('password') new_password: string) {
+		let token = await this.recoveryService.findToken(reset_id);
+
+		if (!token || token.valid === false)
+			throw new UnauthorizedException('Token not found');
+
+		try {
+			this.recoveryService.updateStatus(token);
+			let data = this.recoveryService.verifyToken(reset_id);
+			this.loginService.updatePassword(new_password, data.email);
+		} catch (e) {
+			throw new UnauthorizedException('Token Expired!');
+		}
 	}
 }

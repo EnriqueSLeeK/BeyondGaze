@@ -11,7 +11,7 @@ import { AuthModule } from './auth/auth.module';
 import { LoginModule } from './login/login.module';
 import { ConfigModule } from '@nestjs/config'
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { User } from './login/entity/user.entity';
+import { User } from './entity/user.entity';
 import { MailModule } from './mail/mail.module';
 
 @Module({

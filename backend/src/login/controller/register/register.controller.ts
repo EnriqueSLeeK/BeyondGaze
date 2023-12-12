@@ -1,6 +1,6 @@
 import { Body, ConflictException, Controller, Get, Post } from '@nestjs/common';
-import { CreateUser } from 'src/login/dto/user.dto';
-import { User } from 'src/login/entity/user.entity';
+import { CreateUser } from 'src/dto/user.dto';
+import { User } from 'src/entity/user.entity';
 import { RegisterService } from 'src/login/service/register/register.service';
 import { HashService } from 'src/login/service/hash/hash.service';
 

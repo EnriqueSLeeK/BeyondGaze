@@ -1,6 +1,6 @@
 import { Injectable, UnauthorizedException } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
-import { LoginUser } from 'src/login/dto/user.dto';
+import { LoginUser } from 'src/dto/user.dto';
 import { HashService } from 'src/login/service/hash/hash.service';
 import { LoginService } from 'src/login/service/login/login.service';
 
@@ -33,4 +33,5 @@ export class AuthService {
 
 		return data;
 	}
+
 }
