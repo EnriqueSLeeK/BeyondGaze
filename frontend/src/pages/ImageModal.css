@@ -1,0 +1,92 @@
+/* Overlay do modal que cobre a tela inteira */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Conteúdo principal do modal, configurado como uma coluna flexível */
+.modal-content {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+  min-width: 300px;
+  min-height: 400px;
+  padding: 20px;
+  border-radius: 10px;
+  background: white;
+  position: relative;
+}
+
+/* Informações da imagem, como título e descrição */
+.image-info {
+  margin-top: 20px;
+  text-align: center;
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 100%;
+  align-items: center;
+}
+
+/* Cabeçalho do modal, que inclui o título e o botão de favorito */
+.image-header {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+}
+
+/* Ajuste do botão dentro do cabeçalho para alinhamento correto */
+.image-header button {
+  margin-right: -50px;
+}
+
+/* Estilos para a imagem dentro do modal */
+.modal-content img {
+  max-width: 90%;
+  max-height: 70vh;
+  width: auto;
+  height: auto;
+  overflow: auto;
+}
+
+/* Links dentro das informações da imagem */
+.image-info a {
+  color: #61dafb;
+  text-decoration: none;
+}
+
+/* Botão genérico dentro das informações da imagem */
+.image-info button {
+  margin-top: 10px;
+  width: 30%;
+  align-self: center;
+}
+
+/* Botão para marcar como favorito, com estilos de estrela */
+.favorite-button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 24px;
+  color: #000;
+}
+
+/* Estilo da estrela quando o item é favorito */
+.favorite-button .fas {
+  color: #ffd700;
+}
+
+/* Efeito ao passar o mouse sobre o botão de favorito */
+.favorite-button:hover {
+  color: #fc0;
+}
