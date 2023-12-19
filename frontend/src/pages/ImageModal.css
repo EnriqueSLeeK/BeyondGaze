@@ -72,6 +72,16 @@
   align-self: center;
 }
 
+/* Estilos para o botão de fechar */
+.close-button {
+  background-color: #61dafb; 
+  color: white; 
+  border: none;
+  padding: 10px;
+  border-radius: 5px;
+}
+
+
 /* Botão para marcar como favorito, com estilos de estrela */
 .favorite-button {
   background: none;

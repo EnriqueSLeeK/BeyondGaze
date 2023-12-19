@@ -30,7 +30,7 @@ const ImageModal = ({ image, onClose }) => {
           </div>
           <p>{image.description}</p>
           <p><a href={image.siteUrl} target="_blank" rel="noopener noreferrer">Visitar site</a></p>
-          <button onClick={onClose}>Close</button>
+          <button onClick={onClose} className="close-button">Close</button>
         </div>
       </div>
     </div>

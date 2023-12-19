@@ -16,6 +16,11 @@
   left: 20px; 
 }
 
+.logo-container img {
+  width: 200px;  /* ou outra largura conforme necessário */
+  height: auto;  /* mantém a proporção do logo */
+}
+
 /* Estilos para o contêiner da barra de busca, incluindo alinhamento e estilo do campo de busca e botão */
 .search-bar-container {
   display: flex;
