@@ -1,7 +1,7 @@
 
 FROM node:21-alpine3.17
 
-WORkDIR /usr/var/app
+WORKDIR /usr/var/app
 
 COPY . .
 
