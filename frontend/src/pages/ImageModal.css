@@ -72,21 +72,11 @@
   align-self: center;
 }
 
-/* Botão para marcar como favorito, com estilos de estrela */
-.favorite-button {
-  background: none;
+/* Estilos para o botão de fechar */
+.close-button {
+  background-color: #61dafb; 
+  color: white; 
   border: none;
-  cursor: pointer;
-  font-size: 24px;
-  color: #000;
-}
-
-/* Estilo da estrela quando o item é favorito */
-.favorite-button .fas {
-  color: #ffd700;
-}
-
-/* Efeito ao passar o mouse sobre o botão de favorito */
-.favorite-button:hover {
-  color: #fc0;
+  padding: 10px;
+  border-radius: 5px;
 }

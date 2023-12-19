@@ -24,13 +24,10 @@ const ImageModal = ({ image, onClose }) => {
         <div className="image-info">
           <div className="image-header">
             <h2>{image.title}</h2>
-              <button onClick={toggleFavorite} className="favorite-button">
-                <i className={`fa${isFavorited ? 's' : 'r'} fa-star`}></i>
-              </button>
           </div>
           <p>{image.description}</p>
           <p><a href={image.siteUrl} target="_blank" rel="noopener noreferrer">Visitar site</a></p>
-          <button onClick={onClose}>Close</button>
+          <button onClick={onClose} className="close-button">Close</button>
         </div>
       </div>
     </div>
