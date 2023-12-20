@@ -3,7 +3,6 @@ import React from 'react';
 
 const ImageModal = ({ image, onClose }) => {
 
-  // Função para alternar o estado de favorito.
   // Se não tiver imagem, não renderiza o componente
   if (!image) {
     return null;
