@@ -1,16 +1,7 @@
 import './ImageModal.css'; 
-import React, { useState } from 'react';
+import React from 'react';
 
 const ImageModal = ({ image, onClose }) => {
-
-  // Estado para controlar se a imagem está favoritada
-  const [isFavorited, setIsFavorited] = useState(false);
-
-  // Função para alternar o estado de favorito.
-  const toggleFavorite = () => {
-    setIsFavorited(!isFavorited);
-    // TODO: Adicionar código para comunicar com o backend aqui.
-  };
 
   // Se não tiver imagem, não renderiza o componente
   if (!image) {
