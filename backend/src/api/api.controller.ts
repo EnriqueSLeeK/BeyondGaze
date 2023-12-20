@@ -1,4 +1,4 @@
-import { Controller, Get, Query} from '@nestjs/common';
+import { Controller, Get, Query, NotFoundException } from '@nestjs/common';
 import { ApiService } from './api.service';
 
 @Controller()
@@ -7,6 +7,10 @@ export class ApiController {
 
   @Get('search-images')
   async searchImages(@Query('query') query: string) {
+    if (!query || query.trim() === '') {
+      // Se o parâmetro de consulta estiver vazio, lançamos uma exceção
+      throw new NotFoundException('Query parameter is required.');
+    }
     return this.appService.searchImages(query);
   }
 

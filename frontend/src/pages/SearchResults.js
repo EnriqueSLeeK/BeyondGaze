@@ -1,31 +1,52 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import ImageModal from './ImageModal';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import './SearchResults.css';
 import logoImage from '../images/SpaceSight.png';
-import testImage1 from '../images/TestImage1.jpg';
-import testImage2 from '../images/TestImage2.jpg';
-
 
 function SearchResults() {
+  const [results, setResults] = useState([]);
+  const [selectedImage, setSelectedImage] = useState(null);
+  const location = useLocation();
+  const searchInput = new URLSearchParams(location.search).get('query');
+
+  useEffect(() => {
+    console.log('useEffect acionado. Search Input:', searchInput);
   
-  const [results, setResults] = useState([
-    { id: 1, src: testImage1, title: 'Image 1', description: 'Description 1' , siteUrl: 'http://example.com'},
-    { id: 2, src: testImage2, title: 'Image 2', description: 'Description 2' , siteUrl: 'http://example.com'},
-    { id: 3, src: testImage1, title: 'Image 3', description: 'Description 3' , siteUrl: 'http://example.com'},
-    { id: 4, src: testImage2, title: 'Image 4', description: 'Description 4' , siteUrl: 'http://example.com'},
-    { id: 5, src: testImage1, title: 'Image 5', description: 'Description 5' , siteUrl: 'http://example.com'},
-    { id: 6, src: testImage2, title: 'Image 6', description: 'Description 6' , siteUrl: 'http://example.com'},
-    { id: 7, src: testImage1, title: 'Image 7', description: 'Description 7' , siteUrl: 'http://example.com'},
-    { id: 8, src: testImage2, title: 'Image 8', description: 'Description 8' , siteUrl: 'http://example.com'},
-    { id: 9, src: testImage1, title: 'Image 9', description: 'Description 9' , siteUrl: 'http://example.com'},
-    { id: 10, src: testImage2, title: 'Image 10', description: 'Description 10' , siteUrl: 'http://example.com'},
-  ]);
+    const fetchData = async () => {
+      console.log('Iniciando chamada à API...');
+      
+      try {
+        const response = await fetch(`http://localhost:4000/search-images?query=${searchInput}`);
+        const data = await response.json();
+        console.log('Data from API:', data);
+  
+        if (data && data.collection && data.collection.items && data.collection.items.length > 0) {
+          const formattedResults = data.collection.items.map(item => ({
+            id: item.data.length > 0 ? item.data[0].nasa_id : '',
+            src: item.links.length > 0 ? item.links[0].href : '',
+            title: item.data.length > 0 ? item.data[0].title : '',
+            description: item.data.length > 0 ? item.data[0].description : '',
+            siteUrl: item.links.length > 0 ? item.links[0].href : ''
+          }));
+  
+          console.log('Formatted Results:', formattedResults);
+  
+          setResults(formattedResults);
+        } else {
+          console.warn('No items found in data.');
+          setResults([]);
+        }
+      } catch (error) {
+        console.error('Error fetching data:', error);
+        setResults([]);
+      }
+    };
+  
+    fetchData();
+  }, [searchInput]);
+  
 
-  // Inicializa estado para armazenar a imagem selecionada para o modal, inicialmente null
-  const [selectedImage, setSelectedImage] = useState(null); 
-
-  // Função para lidar com o clique em uma imagem.
   const handleImageClick = (imageData, event) => {
     event.stopPropagation();
     if (event.target.tagName === 'IMG') {
@@ -33,11 +54,9 @@ function SearchResults() {
     }
   };
 
-  // Função para fechar o modal
   const handleCloseModal = () => {
-    setSelectedImage(null); // Reseta o estado, fechando o modal
+    setSelectedImage(null);
   };
-
 
   return (
     <div className="search-results">

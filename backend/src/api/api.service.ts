@@ -5,8 +5,8 @@ import axios from 'axios';
 export class ApiService {
   private readonly apiUrl = 'https://images-api.nasa.gov';
 
-  async searchImages(query: string) {
-    const url = `${this.apiUrl}/search?q=${query}`;
+  async searchImages(q: string) {
+    const url = `${this.apiUrl}/search?q=${q}`;
     const response = await axios.get(url);
     return response.data;
   }
